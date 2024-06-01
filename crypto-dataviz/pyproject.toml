@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "crypto-dataviz"
+version = "0.1.0"
+description = ""
+authors = ["Carl Kugblenu <ckugblenu@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+duckdb = "^0.10.3"
+pandas = "^2.2.2"
+streamlit = "^1.35.0"
+instructor = "^1.3.2"
+pydantic = "^2.7.2"
+notebook = "^7.2.0"
+statsmodels = "^0.14.2"
+plotly = "^5.22.0"
+python-decouple = "^3.8"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
