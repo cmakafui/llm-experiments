@@ -132,7 +132,7 @@ request_prompt_template = Template(
 async def async_generate_visualization_plan(table_info, question):
     placeholder = st.empty()
     plan = await async_client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": analysis_system_message},
             {

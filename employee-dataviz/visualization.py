@@ -22,7 +22,7 @@ def extract_chart_data(data, x_field, y_field, group_field=None):
 
 def get_bar_chart(data, title, x_field="department", y_field="value", group_field=None, barmode="group"):
     grouped_data = extract_chart_data(data, x_field, y_field, group_field)
-    
+    print(grouped_data)
     if group_field:
         traces = [
             go.Bar(name=group, x=values["x"], y=values["y"], offsetgroup=idx)
@@ -43,6 +43,7 @@ def get_bar_chart(data, title, x_field="department", y_field="value", group_fiel
 
 def get_pie_chart(data, title, value_field="value", name_field="department"):
     chart_data = extract_chart_data(data, name_field, value_field)
+    print(chart_data)
     
     fig = go.Figure(data=[go.Pie(labels=chart_data["x"], values=chart_data["y"], hole=0.4)])
     fig.update_layout(title_text=title)
@@ -50,18 +51,22 @@ def get_pie_chart(data, title, value_field="value", name_field="department"):
 
 def get_line_chart(data, title, x_field="interaction_date", y_field="interaction_count", group_field="department"):
     grouped_data = extract_chart_data(data, x_field, y_field, group_field)
+    print("Grouped Data:", grouped_data)
     
-    traces = [
-        go.Scatter(name=group, x=values["x"], y=values["y"], mode='lines')
-        for group, values in grouped_data.items()
-    ]
+    if group_field:
+        traces = [
+            go.Scatter(name=group, x=values["x"], y=values["y"], mode='lines')
+            for group, values in grouped_data.items()
+        ]
+    else:
+        traces = [go.Scatter(x=grouped_data["x"], y=grouped_data["y"], mode='lines')]
 
     fig = go.Figure(data=traces)
     fig.update_layout(
         title=title,
         xaxis_title=x_field.replace("_", " ").capitalize(),
         yaxis_title=y_field.replace("_", " ").capitalize(),
-        legend_title=group_field.replace("_", " ").capitalize(),
+        legend_title=group_field.replace("_", " ").capitalize() if group_field else None,
     )
     return fig
 
